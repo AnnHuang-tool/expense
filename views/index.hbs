@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="form-group col-6 mx-auto mt-4">
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+
+      <div class="totalAmount mt-4">總金額: <span>0</span></div>
+
+      <ul class="list-group mt-4" style="50%">
+        {{!-- each --}}
+        <li class="list-group-item d-flex justify-content-between">
+          <div class="record-list d-flex">
+            <i class="fas fa-home my-auto"></i>
+            <div class="nameAndDate">
+              <div class="name">Cras justo odio</div>
+              <small class="date">1993/7/45</small>
+            </div>
+            <div class="amount my-auto ml-5">$100</div>
+          </div>
+          <div class="button my-auto">
+            <a href="" class="btn btn-success">修改</a>
+            <a href="" class="btn btn-danger">刪除</a>
+          </div>
+        </li>
+        {{!-- each --}}
+      </ul>
+      {{!-- 新增支出 --}}
+      <a href="" class="btn btn-primary mt-4">新增支出</a>
+
+    </div>
+  </div>
+</div>
