@@ -21,11 +21,17 @@ router.get('/', (req, res) => {
   Record.find()
     .lean()
     .then(record => {
-      res.render('index', { record, categoryArray })
+      let totalAmount = 0
+      for (let i = 0; i < record.length; i++) {
+        totalAmount += record[i].amount
+      }
+      res.render('index', { record, categoryArray, totalAmount })
 
     })
     .catch(error => console.log(error))
 })
+
+
 
 
 
