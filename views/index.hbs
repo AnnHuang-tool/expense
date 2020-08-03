@@ -3,20 +3,22 @@
     <div class="form-group col-6 mx-auto mt-4">
       <select class="form-control" id="category" name="category">
         <option selected>全部</option>
-        <option>家居物業</option>
-        <option>交通出行</option>
-        <option>休閒娛樂</option>
-        <option>餐飲食品</option>
+        {{#each categoryArray}}
+        <option>{{this.categoryName}}</option>
+        {{/each}}
       </select>
 
       <div class="totalAmount mt-4">總金額: <span>0</span></div>
 
       <ul class="list-group mt-4">
-        {{!-- each --}}
         {{#each record}}
         <li class="list-group-item d-flex justify-content-between">
           <div class="record-list d-flex">
-            {{{this.icon}}}
+            {{#equal this.category '家居物業'}}<i class="fas fa-home"></i>{{/equal}}
+            {{#equal this.category '交通出行'}}<i class="fas fa-shuttle-van"></i>{{/equal}}
+            {{#equal this.category '休閒娛樂'}}<i class="fas fa-grin-beam"></i>{{/equal}}
+            {{#equal this.category '餐飲食品'}}<i class="fas fa-utensils"></i>{{/equal}}
+            {{#equal this.category '其他'}}<i class="fas fa-pen"></i>{{/equal}}
             <div class="nameAndDate">
               <div class="name">{{this.name}}</div>
               <small class="date">{{this.date}}</small>
@@ -31,7 +33,6 @@
           </div>
         </li>
         {{/each}}
-        {{!-- each --}}
       </ul>
       {{!-- 新增支出 --}}
       <a href="/records/new" class="btn btn-primary mt-4">新增支出</a>

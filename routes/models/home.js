@@ -1,14 +1,30 @@
 const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record.js')
+const Category = require('../../models/category.js')
+const handlebars = require('handlebars')
+
+handlebars.registerHelper('equal', (category1, category2, options) => {
+  if (category1 === category2) {
+    return options.fn(this)
+  } else {
+    return options.inverse(this)
+  }
+})
 
 router.get('/', (req, res) => {
-  return Record.find()
+  const categoryArray = []
+  Category.find()
+    .lean()
+    .then(categories => categoryArray.push(...categories))
+    .catch(error => console.log(error))
+  Record.find()
     .lean()
     .then(record => {
-      return res.render('index', { record })
+      res.render('index', { record, categoryArray })
+
     })
-    .catch(err => console.log(err))
+    .catch(error => console.log(error))
 })
 
 

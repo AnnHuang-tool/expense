@@ -1,24 +1,17 @@
-// const db = require('../../config/mongoose.js')
-// const Category = require('../category')
+const Category = require('../category.js')
+const db = require('../../config/mongoose.js')
 
-// const categories = ['家居物業', '交通出行', '休閒娛樂', '餐飲食品', '其他'].map(category => ({ name: category }))
-// const icons = [
-//   '<i class="fas fa-home fa-2x"></i>',
-//   '<i class="fas fa-shuttle-van fa-2x"></i>',
-//   '<i class="fas fa-grin-beam fa-2x"></i>',
-//   '<i class="fas fa-utensils fa-2x"></i>',
-//   '<i class="fas fa-pen fa-2x"></i>'
-// ]
-
-// categories.map(category => {
-//   category.icon = icons[categories.indexOf(category)]
-// })
-
-// db.once('open', () => {
-//   Category.create(
-//     {
-
-//     }
-//   )
-//   console.log('done!')
-// })
+db.once('open', () => {
+  const categoryName = ['家居物業', '交通出行', '休閒娛樂', '餐飲食品', '其他']
+  const icon = [
+    '<i class="fas fa-home"></i>',
+    '<i class="fas fa-shuttle-van"></i>',
+    '<i class="fas fa-grin-beam"></i>',
+    '<i class="fas fa-utensils"></i>',
+    '<i class="fas fa-pen"></i>'
+  ]
+  for (let i = 0; i < categoryName.length; i++) {
+    Category.create({ categoryName: categoryName[i], icon: icon[i] })
+  }
+  console.log('done!')
+})

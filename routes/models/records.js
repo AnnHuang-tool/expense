@@ -1,9 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record.js')
+const Category = require('../../models/category.js')
 
 router.get('/new', (req, res) => {
-  res.render('new')
+  return Category.find()
+    .lean()
+    .then(categories => res.render('new', { categories }))
+    .catch(error => console.log(error))
 })
 
 router.post('/', (req, res) => {
@@ -14,13 +18,16 @@ router.post('/', (req, res) => {
 })
 
 router.get('/:id/edit', (req, res) => {
+  const categoryArray = []
   const id = req.params.id
-
-  return Record.findById(id)
+  Category.find()
     .lean()
-    .then(record => {
-      res.render('edit', { record })
-    })
+    .then(categories => categoryArray.push(...categories))
+    .catch(error => console.log(error))
+  Record.findById(id)
+    .lean()
+    .then(record => res.render('edit', { record, categoryArray }))
+    .catch(error => console.log(error))
 })
 
 router.put('/:id', (req, res) => {
