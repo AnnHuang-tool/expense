@@ -13,41 +13,38 @@ handlebars.registerHelper('equal', (category1, category2, options) => {
 })
 
 router.get('/', (req, res) => {
-  const categoryArray = []
   Category.find()
     .lean()
-    .then(categories => categoryArray.push(...categories))
-    .catch(error => console.log(error))
-  Record.find()
-    .lean()
-    .then(record => {
-      let totalAmount = 0
-      for (let i = 0; i < record.length; i++) {
-        totalAmount += record[i].amount
-      }
-      res.render('index', { record, categoryArray, totalAmount })
-
+    .then(categories => {
+      return Record.find()
+        .lean()
+        .then(record => {
+          let totalAmount = 0
+          for (let i = 0; i < record.length; i++) {
+            totalAmount += record[i].amount
+          }
+          res.render('index', { record, categories, totalAmount })
+        })
+        .catch(error => console.log(error))
     })
-    .catch(error => console.log(error))
 })
 
 router.get('/filter/:category', (req, res) => {
-  const categoryArray = []
   Category.find()
     .lean()
-    .then(categories => categoryArray.push(...categories))
-    .catch(error => console.log(error))
-  Record.find({ category: `${req.params.category}` })
-    .lean()
-    .then(record => {
-      let totalAmount = 0
-      for (let i = 0; i < record.length; i++) {
-        totalAmount += record[i].amount
-      }
-      const params = req.params.category
-      res.render('index', { record, categoryArray, totalAmount, params })
+    .then(categories => {
+      return Record.find({ category: `${req.params.category}` })
+        .lean()
+        .then(record => {
+          let totalAmount = 0
+          for (let i = 0; i < record.length; i++) {
+            totalAmount += record[i].amount
+          }
+          const params = req.params.category
+          res.render('index', { record, categories, totalAmount, params })
+        })
+        .catch(error => console.log(error))
     })
-    .catch(error => console.log(error))
 })
 
 module.exports = router

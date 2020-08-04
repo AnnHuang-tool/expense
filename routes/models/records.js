@@ -27,21 +27,19 @@ router.post('/', (req, res) => {
 })
 
 router.get('/:id/edit', (req, res) => {
-  const categoryArray = []
   const id = req.params.id
   Category.find()
     .lean()
-    .then(categories => categoryArray.push(...categories))
-    .catch(error => console.log(error))
-  Record.findById(id)
-    .lean()
-    .then(record => res.render('edit', { record, categoryArray }))
-    .catch(error => console.log(error))
+    .then(categories => {
+      return Record.findById(id)
+        .lean()
+        .then(record => res.render('edit', { record, categories }))
+        .catch(error => console.log(error))
+    })
 })
 
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  const { name, data, category, amount } = req.body
   return Record.findById(id)
     .then(record => {
       Object.assign(record, req.body)
