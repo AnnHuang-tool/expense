@@ -19,11 +19,15 @@
         <li class="list-group-item d-flex justify-content-between">
           <div class="record-list d-flex">
             <div class="icon my-auto" style="width: 60px;">
-              {{#equal this.category '家居物業'}}<i class="fas fa-home" style="font-size: 45px;"></i>{{/equal}}
-              {{#equal this.category '交通出行'}}<i class="fas fa-shuttle-van" style="font-size: 45px;"></i>{{/equal}}
-              {{#equal this.category '休閒娛樂'}}<i class="fas fa-grin-beam" style="font-size: 45px;"></i>{{/equal}}
-              {{#equal this.category '餐飲食品'}}<i class="fas fa-utensils" style="font-size: 45px;"></i>{{/equal}}
-              {{#equal this.category '其他'}}<i class="fas fa-pen" style="font-size: 45px;"></i>{{/equal}}
+              {{#equal this.category '家居物業'}}<i class="fas fa-home"
+                style="font-size: 45px; color:cadetblue"></i>{{/equal}}
+              {{#equal this.category '交通出行'}}<i class="fas fa-shuttle-van"
+                style="font-size: 45px; color:lightslategrey"></i>{{/equal}}
+              {{#equal this.category '休閒娛樂'}}<i class="fas fa-grin-beam"
+                style="font-size: 45px; color:salmon"></i>{{/equal}}
+              {{#equal this.category '餐飲食品'}}<i class="fas fa-utensils"
+                style="font-size: 45px; color:mediumvioletred"></i>{{/equal}}
+              {{#equal this.category '其他'}}<i class="fas fa-pen" style="font-size: 45px; color:orange"></i>{{/equal}}
             </div>
             <div class="nameAndDate ml-1" style="width: 190px;">
               <div class="name" style="font-size: larger;">{{this.name}}</div>
@@ -34,7 +38,6 @@
           <div class="button my-auto">
             <a href="/records/{{this._id}}/edit" class="btn btn-success">修改</a>
             <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-              {{!-- <button class="btn btn-danger" type="submit">刪除</button> --}}
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-danger" data-toggle="modal"
                 data-target="#exampleModalCenter{{ this._id }}">
