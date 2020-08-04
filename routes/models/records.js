@@ -6,6 +6,7 @@ const Category = require('../../models/category.js')
 router.get('/new', (req, res) => {
   return Category.find()
     .lean()
+    .sort({ _id: 'asc' })
     .then(categories => res.render('new', { categories }))
     .catch(error => console.log(error))
 })
@@ -30,6 +31,7 @@ router.get('/:id/edit', (req, res) => {
   const id = req.params.id
   Category.find()
     .lean()
+    .sort({ _id: 'asc' })
     .then(categories => {
       return Record.findById(id)
         .lean()

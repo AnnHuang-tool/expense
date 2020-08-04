@@ -7,7 +7,7 @@ db.once('open', () => {
       name: '公車',
       category: '交通出行',
       date: '2020/7/16',
-      amount: 20
+      amount: 50
     },
     {
       name: '午餐',

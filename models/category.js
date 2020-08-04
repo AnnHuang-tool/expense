@@ -4,10 +4,6 @@ const categorySchema = new Schema({
   categoryName: {
     type: String,
     required: false
-  },
-  icon: {
-    type: String,
-    required: false
   }
 })
 
