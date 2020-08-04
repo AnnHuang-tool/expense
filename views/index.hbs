@@ -1,42 +1,72 @@
 <div class="container">
   <div class="row">
     <div class="form-group col-6 mx-auto mt-4">
-      <select class="form-control" id="category" name="category">
-        <option selected>全部</option>
+      <select class="form-control" id="category" name="category" onchange="location = this.value;">
+        <option value="/">全部</option>
+        <option value="/filter/交通出行" {{#equal params '交通出行'}}selected{{/equal}}>交通出行</option>
+        <option value="/filter/餐飲食品" {{#equal params '餐飲食品'}}selected{{/equal}}>餐飲食品</option>
+        <option value="/filter/休閒娛樂" {{#equal params '休閒娛樂'}}selected{{/equal}}>休閒娛樂</option>
+        <option value="/filter/家居物業" {{#equal params '家居物業'}}selected{{/equal}}>家居物業</option>
+        <option value="/filter/其他" {{#equal params '其他'}}selected{{/equal}}>其他</option>
+        {{!-- <option disabled selected hidden>全部</option>
         {{#each categoryArray}}
-        <option>{{this.categoryName}}</option>
-        {{/each}}
+        <option value="/filter/{{this.categoryName}}">{{this.categoryName}}</option>
+        {{/each}} --}}
       </select>
-
-      <div class="totalAmount mt-4">總金額: <span>{{totalAmount}}</span></div>
-
+      <div class="totalAmount mt-4 ">總金額: <span style="font-size: 80px;">{{totalAmount}}</span></div>
       <ul class="list-group mt-4">
         {{#each record}}
         <li class="list-group-item d-flex justify-content-between">
           <div class="record-list d-flex">
-            {{#equal this.category '家居物業'}}<i class="fas fa-home"></i>{{/equal}}
-            {{#equal this.category '交通出行'}}<i class="fas fa-shuttle-van"></i>{{/equal}}
-            {{#equal this.category '休閒娛樂'}}<i class="fas fa-grin-beam"></i>{{/equal}}
-            {{#equal this.category '餐飲食品'}}<i class="fas fa-utensils"></i>{{/equal}}
-            {{#equal this.category '其他'}}<i class="fas fa-pen"></i>{{/equal}}
-            <div class="nameAndDate">
-              <div class="name">{{this.name}}</div>
+            <div class="icon my-auto" style="width: 60px;">
+              {{#equal this.category '家居物業'}}<i class="fas fa-home" style="font-size: 45px;"></i>{{/equal}}
+              {{#equal this.category '交通出行'}}<i class="fas fa-shuttle-van" style="font-size: 45px;"></i>{{/equal}}
+              {{#equal this.category '休閒娛樂'}}<i class="fas fa-grin-beam" style="font-size: 45px;"></i>{{/equal}}
+              {{#equal this.category '餐飲食品'}}<i class="fas fa-utensils" style="font-size: 45px;"></i>{{/equal}}
+              {{#equal this.category '其他'}}<i class="fas fa-pen" style="font-size: 45px;"></i>{{/equal}}
+            </div>
+            <div class="nameAndDate ml-1" style="width: 190px;">
+              <div class="name" style="font-size: larger;">{{this.name}}</div>
               <small class="date">{{this.date}}</small>
             </div>
-            <div class="amount my-auto ml-5">${{this.amount}}</div>
+            <div class="amount my-auto ml-5" style="font-size: larger;">${{this.amount}}</div>
           </div>
           <div class="button my-auto">
             <a href="/records/{{this._id}}/edit" class="btn btn-success">修改</a>
             <form action="/records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-              <button class="btn btn-danger" type="submit">刪除</button>
+              {{!-- <button class="btn btn-danger" type="submit">刪除</button> --}}
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-danger" data-toggle="modal"
+                data-target="#exampleModalCenter{{ this._id }}">
+                刪除
+              </button>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModalCenter{{ this._id }}" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalCenterTitle">刪除支出項目</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body text-center">
+                      刪除【{{ this.name }}】此筆支出
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">確認刪除</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </form>
           </div>
         </li>
         {{/each}}
       </ul>
-      {{!-- 新增支出 --}}
       <a href="/records/new" class="btn btn-primary mt-4">新增支出</a>
-
     </div>
   </div>
 </div>

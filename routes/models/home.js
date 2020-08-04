@@ -31,8 +31,23 @@ router.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
-
-
-
+router.get('/filter/:category', (req, res) => {
+  const categoryArray = []
+  Category.find()
+    .lean()
+    .then(categories => categoryArray.push(...categories))
+    .catch(error => console.log(error))
+  Record.find({ category: `${req.params.category}` })
+    .lean()
+    .then(record => {
+      let totalAmount = 0
+      for (let i = 0; i < record.length; i++) {
+        totalAmount += record[i].amount
+      }
+      const params = req.params.category
+      res.render('index', { record, categoryArray, totalAmount, params })
+    })
+    .catch(error => console.log(error))
+})
 
 module.exports = router

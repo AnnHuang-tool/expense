@@ -12,7 +12,14 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res) => {
   const { name, data, category, amount } = req.body
-  return Record.create(req.body)
+  if (category === undefined) {
+    const alert = '請選擇支出類別'
+    return Category.find()
+      .lean()
+      .then(categories => res.render('new', { alert, categories }))
+      .catch(error => console.log(error))
+  }
+  Record.create(req.body)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
