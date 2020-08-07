@@ -9,5 +9,6 @@ db.once('open', () => {
         db.close()
         console.log('Category done!')
       })
+      .catch(error => console.log(error))
   }
 })
