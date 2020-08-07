@@ -34,5 +34,8 @@ db.once('open', () => {
       amount: 100
     }
   )
-  console.log('done!')
+    .then(() => {
+      db.close()
+      console.log('Record done!')
+    })
 })
