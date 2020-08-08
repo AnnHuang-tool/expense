@@ -38,4 +38,5 @@ db.once('open', () => {
       db.close()
       console.log('Record done!')
     })
+    .catch(error => console.log(error))
 })

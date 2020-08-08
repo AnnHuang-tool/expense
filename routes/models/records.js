@@ -35,9 +35,13 @@ router.get('/:id/edit', (req, res) => {
     .then(categories => {
       return Record.findById(id)
         .lean()
-        .then(record => res.render('edit', { record, categories }))
+        .then(record => {
+          const category = record.category
+          res.render('edit', { record, category, categories })
+        })
         .catch(error => console.log(error))
     })
+    .catch(error => console.log(error))
 })
 
 router.put('/:id', (req, res) => {

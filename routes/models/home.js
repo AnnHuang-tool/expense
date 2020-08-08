@@ -27,6 +27,7 @@ router.get('/', (req, res) => {
         })
         .catch(error => console.log(error))
     })
+    .catch(error => console.log(error))
 })
 
 router.get('/filter/:category', (req, res) => {
@@ -45,6 +46,7 @@ router.get('/filter/:category', (req, res) => {
         })
         .catch(error => console.log(error))
     })
+    .catch(error => console.log(error))
 })
 
 module.exports = router
