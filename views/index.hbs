@@ -3,11 +3,10 @@
     <div class="form-group col-6 mx-auto mt-4">
       <select class="form-control" id="category" name="category" onchange="location = this.value;">
         <option value="/">全部</option>
-        <option value="/filter/交通出行" {{#equal params '交通出行'}}selected{{/equal}}>交通出行</option>
-        <option value="/filter/餐飲食品" {{#equal params '餐飲食品'}}selected{{/equal}}>餐飲食品</option>
-        <option value="/filter/休閒娛樂" {{#equal params '休閒娛樂'}}selected{{/equal}}>休閒娛樂</option>
-        <option value="/filter/家居物業" {{#equal params '家居物業'}}selected{{/equal}}>家居物業</option>
-        <option value="/filter/其他" {{#equal params '其他'}}selected{{/equal}}>其他</option>
+        {{#each categories}}
+        <option value="/filter/{{this.categoryName}}" {{#equal this.categoryName ../params }}selected{{/equal}}>
+          {{this.categoryName}}</option>
+        {{/each}}
       </select>
       <div class="totalAmount mt-4">
         <span style="font-size:larger;">總金額:</span>
