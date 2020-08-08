@@ -37,6 +37,7 @@ router.get('/:id/edit', (req, res) => {
         .lean()
         .then(record => {
           const category = record.category
+          console.log(category)
           res.render('edit', { record, category, categories })
         })
         .catch(error => console.log(error))
