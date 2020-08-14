@@ -1,13 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="form-group col-6 mx-auto mt-4">
-      <select class="form-control" id="category" name="category" onchange="location = this.value;">
-        <option value="/">全部</option>
-        {{#each categories}}
-        <option value="/filter/{{this.categoryName}}" {{#equal this.categoryName ../params }}selected{{/equal}}>
-          {{this.categoryName}}</option>
-        {{/each}}
-      </select>
+      <form action="/filter">
+        <select class="form-control" id="category" name="category" onchange="this.form.submit()">
+          <option disabled selected hidden>全部</option>
+          {{#each categories}}
+          <option value="{{this.categoryName}}" {{#equal this.categoryName ../name }}selected{{/equal}}>
+            {{this.categoryName}}</option>
+          {{/each}}
+        </select>
+      </form>
       <div class="totalAmount mt-4">
         <span style="font-size:larger;">總金額:</span>
         <p class="text-center" style="font-size: 80px; color:orange; letter-spacing: 8px">{{totalAmount}}</p>
