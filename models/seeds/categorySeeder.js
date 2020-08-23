@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const Category = require('../category.js')
 const db = require('../../config/mongoose.js')
 
@@ -6,9 +9,10 @@ db.once('open', () => {
   for (let i = 0; i < categoryName.length; i++) {
     Category.create({ categoryName: categoryName[i] })
       .then(() => {
-        db.close()
+        // db.close()
         console.log('Category done!')
       })
+      .then(() => process.exit())
       .catch(error => console.log(error))
   }
 })

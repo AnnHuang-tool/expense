@@ -6,15 +6,18 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const userPassport = require('./config/passport')
 const flash = require('connect-flash')
-require('./config/mongoose.js')
 
-const PORT = process.env.PORT || 3000
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+require('./config/mongoose.js')
+const PORT = process.env.PORT
 const app = express()
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 app.use(session({
-  secret: 'mysecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -27,6 +30,7 @@ app.use((req, res, next) => {
   res.locals.user = req.user
   res.locals.warning_msg = req.flash('warning_msg')
   res.locals.success_msg = req.flash('success_msg')
+  res.locals.login_msg = req.flash('login_msg')
   next()
 })
 app.use(routes)
