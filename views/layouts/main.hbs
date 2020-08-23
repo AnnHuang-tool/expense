@@ -13,7 +13,12 @@
 
 <body style="font-family: Fantasy; min-width: 576px;">
   <nav class="navbar navbar-dark bg-dark">
-    <a href="/" class="navbar-brand mb-0 h1">家庭記帳本</a>
+    <a href="/" class="navbar-brand mb-0 h1">{{#if user}}{{user.name}}的{{/if}}家庭記帳本</a>
+    {{#if isAuthenticated}}
+    <a href="/users/logout" class="btn btn-primary btn-lg">Logout</a>
+    {{else}}
+    <a href="/users/login" class="btn btn-primary btn-lg">Login</a>
+    {{/if}}
   </nav>
 
   {{{body}}}

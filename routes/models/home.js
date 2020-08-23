@@ -14,6 +14,7 @@ handlebars.registerHelper('equal', (category1, category2, options) => {
 })
 
 router.get('/', (req, res) => {
+  const userId = req.user._id
   Month.find()
     .lean()
     .sort({ month: 'asc' })
@@ -21,7 +22,7 @@ router.get('/', (req, res) => {
       return Category.find()
         .lean()
         .then(categories => {
-          return Record.find()
+          return Record.find({ userId })
             .lean()
             .then(record => {
               let totalAmount = 0

@@ -12,6 +12,7 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  const userId = req.user._id
   const { name, store, date, category, amount } = req.body
   if (category === undefined) {
     const alert = '請選擇支出類別'
@@ -22,18 +23,19 @@ router.post('/', (req, res) => {
       })
       .catch(error => console.log(error))
   }
-  Record.create(req.body)
+  Record.create({ name, store, date, category, amount, userId })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   Category.find()
     .lean()
     .sort({ _id: 'asc' })
     .then(categories => {
-      return Record.findById(id)
+      return Record.findOne({ _id, userId })
         .lean()
         .then(record => {
           const category = record.category
@@ -45,8 +47,9 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne({ _id, userId })
     .then(record => {
       Object.assign(record, req.body)
       return record.save()
@@ -56,8 +59,9 @@ router.put('/:id', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Record.findOne({ _id, userId })
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
