@@ -28,7 +28,7 @@
       <ul class="list-group mt-4">
         {{#each record}}
         <li class="list-group-item d-lg-flex">
-          <div class="record-list d-flex col-lg-8">
+          <div class="record-list d-flex col-lg-8" style="position: relative;">
             <div class="icon my-auto" style="width: 60px;">
               {{#equal this.category '家居物業'}}<i class="fas fa-home"
                 style="font-size: 45px; color:cadetblue"></i>{{/equal}}
@@ -40,11 +40,14 @@
                 style="font-size: 45px; color:mediumvioletred"></i>{{/equal}}
               {{#equal this.category '其他'}}<i class="fas fa-pen" style="font-size: 45px; color:orange"></i>{{/equal}}
             </div>
-            <div class="nameAndDate ml-0" style="width: 190px;">
+            <div class="nameAndDate ml-0" style="width: 100px;">
               <div class="name" style="font-size: larger;">{{this.name}}</div>
               <small class="date">{{this.date}}</small>
             </div>
-            <div class="amount my-auto ml-3" style="font-size: larger;">${{this.amount}}</div>
+            <div class="store d-flex align-items-center">{{this.store}}</div>
+            <div class="amount my-auto ml-3" style="font-size: larger; position: absolute; left: 90%; top: 15px">
+              ${{this.amount}}
+            </div>
           </div>
           <div class="button my-auto text-center text-lg-right col-lg-4 p-0">
             <a href="/records/{{this._id}}/edit" class="btn btn-success">修改</a>

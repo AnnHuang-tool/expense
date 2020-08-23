@@ -12,13 +12,13 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { name, date, category, amount } = req.body
+  const { name, store, date, category, amount } = req.body
   if (category === undefined) {
     const alert = '請選擇支出類別'
     return Category.find()
       .lean()
       .then(categories => {
-        res.render('new', { alert, categories, name, date, amount })
+        res.render('new', { alert, categories, name, store, date, amount })
       })
       .catch(error => console.log(error))
   }

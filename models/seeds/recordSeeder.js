@@ -11,24 +11,28 @@ db.once('open', () => {
     },
     {
       name: '午餐',
+      store: '小佐便當店',
       category: '餐飲食品',
       date: '2020-07-15',
       amount: 60
     },
     {
-      name: '電動',
+      name: '模型',
+      store: '模型店',
       category: '休閒娛樂',
       date: '2020-07-17',
       amount: 500
     },
     {
       name: '掃把',
+      store: '寶雅',
       category: '家居物業',
       date: '2020-07-17',
       amount: 100
     },
     {
       name: '糖果',
+      store: '7-11',
       category: '其他',
       date: '2020-07-17',
       amount: 100
