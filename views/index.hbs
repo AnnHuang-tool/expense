@@ -1,15 +1,26 @@
 <div class="container">
   <div class="row">
     <div class="form-group col-6 mx-auto mt-4">
-      <form action="/filter">
-        <select class="form-control" id="category" name="category" onchange="this.form.submit()">
-          <option disabled selected hidden>全部</option>
-          {{#each categories}}
-          <option value="{{this.categoryName}}" {{#equal this.categoryName ../name }}selected{{/equal}}>
-            {{this.categoryName}}</option>
-          {{/each}}
-        </select>
-      </form>
+      <div class="form text-center">
+        <form action="/filter" style="display:inline">
+          <select class="form-control" id="month" name="month" onchange="this.form.submit()"
+            style="width: 49%; display:inline">
+            <option disabled selected hidden>月份</option>
+            {{#each months}}
+            <option value="{{this.month}}" {{#equal this.month ../month }}selected{{/equal}}>
+              {{this.month}}</option>
+            {{/each}}
+          </select>
+          <select class="form-control" id="category" name="category" onchange="this.form.submit()"
+            style="width: 49%; display:inline">
+            <option disabled selected hidden>全部</option>
+            {{#each categories}}
+            <option value="{{this.categoryName}}" {{#equal this.categoryName ../category }}selected{{/equal}}>
+              {{this.categoryName}}</option>
+            {{/each}}
+          </select>
+        </form>
+      </div>
       <div class="totalAmount mt-4">
         <span style="font-size:larger;">總金額:</span>
         <p class="text-center" style="font-size: 80px; color:orange; letter-spacing: 8px">{{totalAmount}}</p>

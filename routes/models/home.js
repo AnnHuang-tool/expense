@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record.js')
 const Category = require('../../models/category.js')
+const Month = require('../../models/month.js')
 const handlebars = require('handlebars')
 
 handlebars.registerHelper('equal', (category1, category2, options) => {
@@ -13,36 +14,54 @@ handlebars.registerHelper('equal', (category1, category2, options) => {
 })
 
 router.get('/', (req, res) => {
-  Category.find()
+  Month.find()
     .lean()
-    .then(categories => {
-      return Record.find()
+    .sort({ month: 'asc' })
+    .then(months => {
+      return Category.find()
         .lean()
-        .then(record => {
-          let totalAmount = 0
-          for (let i = 0; i < record.length; i++) {
-            totalAmount += record[i].amount
-          }
-          res.render('index', { record, categories, totalAmount })
+        .then(categories => {
+          return Record.find()
+            .lean()
+            .then(record => {
+              let totalAmount = 0
+              for (let i = 0; i < record.length; i++) {
+                totalAmount += record[i].amount
+              }
+              res.render('index', { record, categories, totalAmount, months })
+            })
+            .catch(error => console.log(error))
         })
         .catch(error => console.log(error))
     })
     .catch(error => console.log(error))
+
 })
 
 router.get('/filter', (req, res) => {
-  const name = req.query.category
-  Category.find()
+  let { category, month } = req.query
+  if (month) {
+    if (month.length === 1) {
+      month = `0${month}`
+    }
+  }
+  Month.find()
     .lean()
-    .then(categories => {
-      return Record.find({ category: `${req.query.category}` })
+    .sort({ month: 'asc' })
+    .then(months => {
+      return Category.find()
         .lean()
-        .then(record => {
-          let totalAmount = 0
-          for (let i = 0; i < record.length; i++) {
-            totalAmount += record[i].amount
-          }
-          res.render('index', { record, categories, totalAmount, name })
+        .then(categories => {
+          return Record.find({ $or: [{ category: `${category}` }, { date: { $gte: `2020-${month}-01`, $lte: `2020-${month}-31` } }] })
+            .lean()
+            .then(record => {
+              let totalAmount = 0
+              for (let i = 0; i < record.length; i++) {
+                totalAmount += record[i].amount
+              }
+              res.render('index', { record, categories, totalAmount, category, months, month: Number(month) })
+            })
+            .catch(error => console.log(error))
         })
         .catch(error => console.log(error))
     })
