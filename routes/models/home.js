@@ -41,11 +41,20 @@ router.get('/', (req, res) => {
 
 router.get('/filter', (req, res) => {
   const userId = req.user._id
+  let filter = { userId }
   let { category, month } = req.query
   if (month) {
     if (month.length === 1) {
       month = `0${month}`
     }
+  }
+  if (month && category) {
+    filter.date = { $gte: `2020-${month}-01`, $lte: `2020-${month}-31` }
+    filter.category = category
+  } else if (month) {
+    filter.date = { $gte: `2020-${month}-01`, $lte: `2020-${month}-31` }
+  } else if (category) {
+    filter.category = category
   }
   Month.find()
     .lean()
@@ -54,7 +63,7 @@ router.get('/filter', (req, res) => {
       return Category.find()
         .lean()
         .then(categories => {
-          return Record.find({ userId, $or: [{ category: `${category}`, date: { $gte: `2020-${month}-01`, $lte: `2020-${month}-31` } }] })
+          return Record.find(filter)
             .lean()
             .then(record => {
               let totalAmount = 0

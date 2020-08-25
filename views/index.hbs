@@ -8,7 +8,7 @@
             <option disabled selected hidden>月份</option>
             {{#each months}}
             <option value="{{this.month}}" {{#equal this.month ../month }}selected{{/equal}}>
-              {{this.month}}</option>
+              {{this.month}}月</option>
             {{/each}}
           </select>
           <select class="form-control" id="category" name="category" onchange="this.form.submit()"
