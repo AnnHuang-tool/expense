@@ -25,6 +25,8 @@ router.post('/register', (req, res) => {
     errors.push({ message: '全部欄位都必須填寫' })
   } else if (password !== confirmPassword) {
     errors.push({ message: '密碼與確認密碼必須相同' })
+  } else if (password.length < 8) {
+    errors.push({ message: '密碼長度至少8位數' })
   }
   if (errors.length) {
     return res.render('register', { errors, name, email, password, confirmPassword })
