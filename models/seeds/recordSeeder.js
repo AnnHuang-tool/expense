@@ -63,17 +63,12 @@ db.once('open', () => {
   user()
     .then(user => {
       const userId = user._id
-      const record = () => {
-        return new Promise((resolve, reject) => {
-          SEED_DATA.forEach(data => {
-            data.userId = userId
-            Record.create(data)
-              .then(() => resolve())
-              .catch(error => reject(error))
-          })
+      return Promise.all(
+        SEED_DATA.map(data => {
+          data.userId = userId
+          return Record.create(data)
         })
-      }
-      return Promise.all([record()])
+      )
     })
     .then(() => {
       console.log('User done')
