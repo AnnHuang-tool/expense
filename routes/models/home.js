@@ -63,7 +63,7 @@ router.get('/filter', (req, res) => {
     filter.date = { $gte: `${year}-${month}-01`, $lte: `${year}-${month}-31` }
     filter.category = category
   } else if (month && category) {
-    filter.date = { $regex: `${month}` }
+    filter.date = { $regex: `-${month}-` }
     filter.category = category
   } else if (category && year) {
     filter.date = { $regex: `${year}` }
@@ -73,7 +73,7 @@ router.get('/filter', (req, res) => {
   } else if (year) {
     filter.date = { $regex: `${year}` }
   } else if (month) {
-    filter.date = { $regex: `${month}` }
+    filter.date = { $regex: `-${month}-` }
   } else if (category) {
     filter.category = category
   }
