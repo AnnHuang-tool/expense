@@ -25,7 +25,8 @@
         <div class="form-group row">
           <label for="date" class="col-sm-2 col-form-label">日期*: </label>
           <div class="col-sm-10">
-            <input type="date" class="form-control" id="date" name="date" value="{{#if date}}{{date}}{{/if}}" required>
+            <input type="date" class="form-control" id="date" name="date" value="{{#if date}}{{date}}{{/if}}"
+              max="{{limitDate}}" required>
           </div>
         </div>
 

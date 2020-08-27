@@ -4,8 +4,8 @@ const Record = require('../../models/record.js')
 const Category = require('../../models/category.js')
 const Month = require('../../models/month.js')
 const handlebars = require('handlebars')
-const thisYear = new Date().toLocaleString().slice(0, 4)
-const beforeYear = Number(thisYear) - 5
+const thisYear = new Date().getFullYear()
+const beforeYear = thisYear - 5
 
 
 handlebars.registerHelper('equal', (category1, category2, options) => {
@@ -91,7 +91,7 @@ router.get('/filter', (req, res) => {
               for (let i = 0; i < record.length; i++) {
                 totalAmount += record[i].amount
               }
-              res.render('index', { record, categories, totalAmount, category, thisYear, years, year: Number(year), months, month: Number(month) })
+              res.render('index', { record, categories, totalAmount, category, thisYear, years, year, months, month: Number(month) })
             })
             .catch(error => console.log(error))
         })
