@@ -91,7 +91,7 @@ router.get('/filter', (req, res) => {
               for (let i = 0; i < record.length; i++) {
                 totalAmount += record[i].amount
               }
-              res.render('index', { record, categories, totalAmount, category, thisYear, years, year, months, month: Number(month) })
+              res.render('index', { record, categories, totalAmount, category, thisYear, years, year: Number(year), months, month: Number(month) })
             })
             .catch(error => console.log(error))
         })
