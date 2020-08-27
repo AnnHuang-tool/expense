@@ -6,8 +6,8 @@ const User = require('../user.js')
 const bcrypt = require('bcryptjs')
 const db = require('../../config/mongoose.js')
 const SEED_USER = {
-  name: 'User',
-  email: 'user@example.com',
+  name: '老爸',
+  email: 'father@example.com',
   password: '12345678'
 }
 
@@ -29,22 +29,43 @@ const SEED_DATA = [
     name: '模型',
     store: '模型店',
     category: '休閒娛樂',
-    date: '2020-07-17',
+    date: '2020-08-17',
     amount: 500
   },
   {
     name: '掃把',
     store: '寶雅',
     category: '家居物業',
-    date: '2020-07-17',
+    date: '2020-08-17',
     amount: 100
   },
   {
     name: '糖果',
     store: '7-11',
     category: '其他',
-    date: '2020-07-17',
-    amount: 100
+    date: '2019-07-17',
+    amount: 50
+  },
+  {
+    name: '遊樂園',
+    store: '六福村',
+    category: '休閒娛樂',
+    date: '2020-06-17',
+    amount: 1000
+  },
+  {
+    name: '電腦',
+    store: '燦坤',
+    category: '休閒娛樂',
+    date: '2020-06-17',
+    amount: 30000
+  },
+  {
+    name: '飲料',
+    store: '全家超商',
+    category: '餐飲食品',
+    date: '2019-06-17',
+    amount: 30
   }
 ]
 
