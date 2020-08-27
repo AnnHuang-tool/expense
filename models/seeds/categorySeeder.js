@@ -15,5 +15,5 @@ db.once('open', () => {
       console.log('Category done!')
       process.exit()
     })
-    .catch(error => console.log(error))
+    .catch(err => res.render('error'))
 })

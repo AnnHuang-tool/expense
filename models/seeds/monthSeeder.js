@@ -10,5 +10,5 @@ db.once('open', () => {
     (_, i) => Month.create({ month: i + 1 })
   ))
     .then(() => process.exit())
-    .catch(error => console.log(error))
+    .catch(err => res.render('error'))
 })

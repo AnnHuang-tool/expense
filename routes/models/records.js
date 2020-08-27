@@ -9,7 +9,7 @@ router.get('/new', time, (req, res) => {
     .lean()
     .sort({ _id: 'asc' })
     .then(categories => res.render('new', { categories }))
-    .catch(error => console.log(error))
+    .catch(error => res.render('error'))
 })
 
 router.post('/', time, (req, res) => {
@@ -22,11 +22,11 @@ router.post('/', time, (req, res) => {
       .then(categories => {
         res.render('new', { alert, categories, name, store, date, amount })
       })
-      .catch(error => console.log(error))
+      .catch(error => res.render('error'))
   }
   Record.create({ name, store, date, category, amount, userId })
     .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+    .catch(error => res.render('error'))
 })
 
 router.get('/:id/edit', time, (req, res) => {
@@ -44,7 +44,7 @@ router.get('/:id/edit', time, (req, res) => {
         })
         .catch(error => console.log(error))
     })
-    .catch(error => console.log(error))
+    .catch(error => res.render('error'))
 })
 
 router.put('/:id', (req, res) => {
@@ -56,7 +56,7 @@ router.put('/:id', (req, res) => {
       return record.save()
     })
     .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+    .catch(error => res.render('error'))
 })
 
 router.delete('/:id', (req, res) => {
@@ -65,7 +65,7 @@ router.delete('/:id', (req, res) => {
   return Record.findOne({ _id, userId })
     .then(record => record.remove())
     .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+    .catch(error => res.render('error'))
 })
 
 module.exports = router

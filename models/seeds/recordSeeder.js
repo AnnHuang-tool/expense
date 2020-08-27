@@ -95,5 +95,5 @@ db.once('open', () => {
       console.log('User done')
       process.exit()
     })
-    .catch(error => console.log(error))
+    .catch(error => res.render('error'))
 })

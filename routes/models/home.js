@@ -38,11 +38,11 @@ router.get('/', (req, res) => {
               }
               res.render('index', { record, categories, totalAmount, thisYear, years, months })
             })
-            .catch(error => console.log(error))
+            .catch(error => res.render('error'))
         })
-        .catch(error => console.log(error))
+        .catch(error => res.render('error'))
     })
-    .catch(error => console.log(error))
+    .catch(error => res.render('error'))
 
 })
 
@@ -93,11 +93,11 @@ router.get('/filter', (req, res) => {
               }
               res.render('index', { record, categories, totalAmount, category, thisYear, years, year: Number(year), months, month: Number(month) })
             })
-            .catch(error => console.log(error))
+            .catch(error => res.render('error'))
         })
-        .catch(error => console.log(error))
+        .catch(error => res.render('error'))
     })
-    .catch(error => console.log(error))
+    .catch(error => res.render('error'))
 })
 
 module.exports = router

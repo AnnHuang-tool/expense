@@ -41,8 +41,9 @@ router.post('/register', (req, res) => {
         .then(salt => bcrypt.hash(password, salt))
         .then(hash => User.create({ name, email, password: hash }))
         .then(() => res.redirect('/users/login'))
-        .catch(err => console.log(err))
+        .catch(err => res.render('error'))
     })
+    .catch(err => res.render('error'))
 })
 
 router.get('/logout', (req, res) => {
