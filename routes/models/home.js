@@ -55,26 +55,24 @@ router.get('/filter', (req, res) => {
     years.push({ year: beforeYear + i })
   }
   if (month) {
-    if (month.length === 1) {
-      month = `0${month}`
-    }
+    month = month.padStart(2, 0)
   }
-  if (month && category && year) {
+  if (year !== 'all' && month !== 'all' && category !== 'all') {
     filter.date = { $gte: `${year}-${month}-01`, $lte: `${year}-${month}-31` }
     filter.category = category
-  } else if (month && category) {
-    filter.date = { $regex: `-${month}-` }
-    filter.category = category
-  } else if (category && year) {
-    filter.date = { $regex: `${year}` }
-    filter.category = category
-  } else if (month && year) {
+  } else if (year !== 'all' && month !== 'all') {
     filter.date = { $gte: `${year}-${month}-01`, $lte: `${year}-${month}-31` }
-  } else if (year) {
-    filter.date = { $regex: `${year}` }
-  } else if (month) {
+  } else if (month !== 'all' && category !== 'all') {
     filter.date = { $regex: `-${month}-` }
-  } else if (category) {
+    filter.category = category
+  } else if (year !== 'all' && category !== 'all') {
+    filter.date = { $regex: `${year}` }
+    filter.category = category
+  } else if (year !== 'all') {
+    filter.date = { $regex: `${year}` }
+  } else if (month !== 'all') {
+    filter.date = { $regex: `-${month}-` }
+  } else if (category !== 'all') {
     filter.category = category
   }
   Month.find()
@@ -91,7 +89,7 @@ router.get('/filter', (req, res) => {
               for (let i = 0; i < record.length; i++) {
                 totalAmount += record[i].amount
               }
-              res.render('index', { record, categories, totalAmount, category, thisYear, years, year: Number(year), months, month: Number(month) })
+              res.render('index', { record, categories, totalAmount, category, thisYear, years, year: Number(year), months, month: Number(month), all: 'all' })
             })
             .catch(error => res.render('error'))
         })

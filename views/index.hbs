@@ -5,7 +5,7 @@
         <form action="/filter" style="display:inline">
           <select class="form-control" id="year" name="year" onchange="this.form.submit()"
             style="width: 49%; display:inline">
-            <option disabled selected hidden>年份</option>
+            <option value="all" selected>年份/全部</option>
             {{#each years}}
             <option value="{{this.year}}" {{#equal this.year ../year }}selected{{/equal}}>
               {{this.year}}年</option>
@@ -13,7 +13,7 @@
           </select>
           <select class="form-control" id="month" name="month" onchange="this.form.submit()"
             style="width: 49%; display:inline">
-            <option disabled selected hidden>月份</option>
+            <option value="all" selected>月份/全部</option>
             {{#each months}}
             <option value="{{this.month}}" {{#equal this.month ../month }}selected{{/equal}}>
               {{this.month}}月</option>
@@ -21,7 +21,7 @@
           </select>
           <select class="form-control mt-1" id="category" name="category" onchange="this.form.submit()"
             style="width: 98%; display:inline">
-            <option disabled selected hidden>全部</option>
+            <option value="all" selected>類別/全部</option>
             {{#each categories}}
             <option value="{{this.categoryName}}" {{#equal this.categoryName ../category }}selected{{/equal}}>
               {{this.categoryName}}</option>
