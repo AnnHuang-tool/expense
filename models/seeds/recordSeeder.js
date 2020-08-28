@@ -70,18 +70,9 @@ const SEED_DATA = [
 ]
 
 db.once('open', () => {
-  const user = () => {
-    return new Promise((resolve, reject) => {
-      bcrypt.genSalt(10)
-        .then(salt => bcrypt.hash(SEED_USER.password, salt))
-        .then(hash => {
-          User.create({ name: SEED_USER.name, email: SEED_USER.email, password: hash })
-            .then(user => resolve(user))
-            .catch(error => reject(error))
-        })
-    })
-  }
-  user()
+  bcrypt.genSalt(10)
+    .then(salt => bcrypt.hash(SEED_USER.password, salt))
+    .then(hash => User.create({ name: SEED_USER.name, email: SEED_USER.email, password: hash }))
     .then(user => {
       const userId = user._id
       return Promise.all(
