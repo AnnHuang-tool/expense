@@ -57,23 +57,15 @@ router.get('/filter', (req, res) => {
   if (month) {
     month = month.padStart(2, 0)
   }
-  if (year !== 'all' && month !== 'all' && category !== 'all') {
-    filter.date = { $gte: `${year}-${month}-01`, $lte: `${year}-${month}-31` }
+  if (category !== 'all') {
     filter.category = category
-  } else if (year !== 'all' && month !== 'all') {
-    filter.date = { $gte: `${year}-${month}-01`, $lte: `${year}-${month}-31` }
-  } else if (month !== 'all' && category !== 'all') {
-    filter.date = { $regex: `-${month}-` }
-    filter.category = category
-  } else if (year !== 'all' && category !== 'all') {
-    filter.date = { $regex: `${year}` }
-    filter.category = category
+  }
+  if (year !== 'all' && month !== 'all') {
+    filter.date = filter.date = { $gte: `${year}-${month}-01`, $lte: `${year}-${month}-31` }
   } else if (year !== 'all') {
     filter.date = { $regex: `${year}` }
   } else if (month !== 'all') {
     filter.date = { $regex: `-${month}-` }
-  } else if (category !== 'all') {
-    filter.category = category
   }
   Month.find()
     .lean()
