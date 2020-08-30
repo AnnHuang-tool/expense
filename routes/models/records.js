@@ -2,17 +2,17 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../../models/record.js')
 const Category = require('../../models/category.js')
-const { time } = require('../../middleware/time')
+const limitDate = require('../../models/dateUtils')
 
-router.get('/new', time, (req, res) => {
+router.get('/new', (req, res) => {
   return Category.find()
     .lean()
     .sort({ _id: 'asc' })
-    .then(categories => res.render('new', { categories }))
+    .then(categories => res.render('new', { categories, limitDate }))
     .catch(error => res.render('error'))
 })
 
-router.post('/', time, (req, res) => {
+router.post('/', (req, res) => {
   const userId = req.user._id
   const { name, store, date, category, amount } = req.body
   if (category === undefined) {
@@ -20,7 +20,7 @@ router.post('/', time, (req, res) => {
     return Category.find()
       .lean()
       .then(categories => {
-        res.render('new', { alert, categories, name, store, date, amount })
+        res.render('new', { alert, categories, name, store, date, amount, limitDate })
       })
       .catch(error => res.render('error'))
   }
@@ -29,7 +29,7 @@ router.post('/', time, (req, res) => {
     .catch(error => res.render('error'))
 })
 
-router.get('/:id/edit', time, (req, res) => {
+router.get('/:id/edit', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
   Category.find()
@@ -40,7 +40,7 @@ router.get('/:id/edit', time, (req, res) => {
         .lean()
         .then(record => {
           const category = record.category
-          res.render('edit', { record, category, categories })
+          res.render('edit', { record, category, categories, limitDate })
         })
         .catch(error => console.log(error))
     })
