@@ -31,6 +31,7 @@ router.get('/', (req, res) => {
         .then(categories => {
           return Record.find({ userId })
             .lean()
+            .sort({ date: 'desc' })
             .then(record => {
               let totalAmount = 0
               for (let i = 0; i < record.length; i++) {
@@ -76,6 +77,7 @@ router.get('/filter', (req, res) => {
         .then(categories => {
           return Record.find(filter)
             .lean()
+            .sort({ date: 'desc' })
             .then(record => {
               let totalAmount = 0
               for (let i = 0; i < record.length; i++) {
